@@ -48,7 +48,8 @@ const logOutUser = asyncHandler(async (req, res) => {
   } else {
     res
       .status(200)
-      .clearCookie("accessToken")
+      .clearCookie("accessToken").
+      res.set('Cache-Control',"no-store, no-cache, must-revalidate, private")
       .send(
         new ApiResponse(200, {
           message: "userLogOut successfully",
