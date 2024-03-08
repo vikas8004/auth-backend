@@ -64,7 +64,7 @@ const loginUser = asyncHandler(async (req, res, next) => {
           .status(200)
           .cookie("accessToken", token, {
             httpOnly: true,
-            sameSite: "strict",
+            sameSite: "none",
             secure: true,
             maxAge: 24 * 60 * 60 * 1000,
           })
