@@ -62,8 +62,9 @@ const logOutUser = asyncHandler(async (req, res) => {
       .status(200)
       .clearCookie("accessToken", {
         httpOnly: true,
-        maxAge:0,
+        maxAge: 0,
         secure: true,
+        sameSite: "none",
       })
       .send(
         new ApiResponse(200, {

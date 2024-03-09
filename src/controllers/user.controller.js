@@ -66,6 +66,7 @@ const loginUser = asyncHandler(async (req, res, next) => {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000,
             secure: true,
+            sameSite:"none"
           })
           .send(new ApiResponse(200, { message: "logged in successfully" }));
       } else {
