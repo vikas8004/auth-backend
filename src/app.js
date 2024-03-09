@@ -9,6 +9,7 @@ app.use(
     extended: true,
   })
 );
+app.use(cookieParser());
 app.use(
   cors({
     origin: [
@@ -19,7 +20,6 @@ app.use(
     credentials: true,
   })
 );
-app.use(cookieParser());
 app.use("/api/v1", userRouter);
 
 export default app;

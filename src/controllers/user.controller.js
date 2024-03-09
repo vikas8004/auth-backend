@@ -64,9 +64,8 @@ const loginUser = asyncHandler(async (req, res, next) => {
           .status(200)
           .cookie("accessToken", token, {
             httpOnly: true,
-            sameSite: "none",
-            secure: true,
             maxAge: 24 * 60 * 60 * 1000,
+            secure: true,
           })
           .send(new ApiResponse(200, { message: "logged in successfully" }));
       } else {

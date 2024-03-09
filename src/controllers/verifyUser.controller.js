@@ -5,6 +5,18 @@ import { User } from "../model/user.model.js";
 const verifyUser = asyncHandler(async (req, res) => {
   //   console.log(req.cookies.accessToken);
   const jwtToken = req.cookies.accessToken;
+  // console.log(jwtToken);
+  if (!jwtToken) {
+    return res
+      .status(200)
+      .send(
+        new ApiResponse(
+          200,
+          { message: "unauthorized user", status: false },
+          "failed"
+        )
+      );
+  }
   const decodedDetails = await jsonwebtoken.verify(
     jwtToken,
     process.env.JWT_SECRET
@@ -48,8 +60,11 @@ const logOutUser = asyncHandler(async (req, res) => {
   } else {
     res
       .status(200)
-      .clearCookie("accessToken").
-      res.set('Cache-Control',"no-store, no-cache, must-revalidate, private")
+      .clearCookie("accessToken", {
+        httpOnly: true,
+        maxAge:0,
+        secure: true,
+      })
       .send(
         new ApiResponse(200, {
           message: "userLogOut successfully",
@@ -58,4 +73,4 @@ const logOutUser = asyncHandler(async (req, res) => {
       );
   }
 });
-export { verifyUser,logOutUser };
+export { verifyUser, logOutUser };
